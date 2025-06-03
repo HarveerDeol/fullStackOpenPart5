@@ -20,7 +20,7 @@ const PersonForm = ({persons, setPersons}) => {
           }      
 
           axios
-          .put(`http://localhost:3001/persons/${personMatched.id}`, personObject)//wasny using put, trying to do a get then a post
+          .put(`/api/persons/${personMatched.id}`, personObject)//wasnt using put, trying to do a get then a post
           .then(response => {
             setPersons(persons.map(person => person.id === personMatched.id ? response.data : person))// was making a simliar mistake in how i was updating setperson
             setNewName('');
@@ -33,7 +33,7 @@ const PersonForm = ({persons, setPersons}) => {
           }
         
           axios
-            .post('http://localhost:3001/persons', personObject)
+            .post('/api/persons', personObject)
             .then(response => {
               setPersons(persons.concat(response.data));
               setNewName('');

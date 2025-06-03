@@ -5,7 +5,7 @@ const Persons = ({persons, newFilter, setPersons}) => {
   const deleteElement = (person)=>{
     if (window.confirm(`Delete ${person.name}?`)){
       axios
-      .delete(`http://localhost:3001/persons/${person.id}`)
+      .delete(`/api/persons/${person.id}`)
       .then(response =>{
         console.log(`deleted ${response.data}`);
         setPersons(persons.filter(personList =>(personList.id != person.id)));
