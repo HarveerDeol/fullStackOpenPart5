@@ -8,9 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "json-server -p 3001 db.json",
-    "build:ui":"cd backendServer && rm -rf dist && cd && npm run build && mv dist backendServer && cd backendServer && npm start",
-    "deploy:full":"npm run build:ui && git add . && git commit -m uibuild && git push"
+    "server": "json-server -p 3001 db.json"
   },
   "dependencies": {
     "axios": "^1.9.0",
