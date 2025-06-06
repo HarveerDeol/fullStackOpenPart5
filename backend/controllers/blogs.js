@@ -1,4 +1,4 @@
-const blogRouter = require('express').router()
+const blogRouter = require('express').Router()
 const Blog = reuire('./models/blog.js')
 
 blogRouter.get('/api/blogs', (request, response) => {

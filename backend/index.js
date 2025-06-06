@@ -1,16 +1,5 @@
+const app = require('./app') // the actual Express application
 const config = require('./utils/config')
-const express = require('express')
-
-
-
-
-const app = express()
-app.use(express.json())
-
-
-config.connectToDb()
-
-
-
+const logger = require('./utils/logger')
 
 config.setupPort()
