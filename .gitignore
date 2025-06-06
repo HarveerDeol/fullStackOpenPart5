@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 .env
-/Users/harveer/fullStackOpen/FSOPart4/backend/.env
+backend/.env
