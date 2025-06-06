@@ -1,4 +1,4 @@
-const config = require('../utils/config.js')
+const mongoose = require('mongoose')
 
 const blogSchema = new mongoose.Schema({
     title: String,
@@ -16,4 +16,4 @@ Transform:(document, returnedObject) => {
 })
 
 
-  module.export = mongoose.module('Blog', blogSchema)
+  module.export = mongoose.model('Blog', blogSchema)

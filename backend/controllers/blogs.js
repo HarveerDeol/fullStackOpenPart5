@@ -1,5 +1,5 @@
 const blogRouter = require('express').Router()
-const Blog = reuire('./models/blog.js')
+const Blog = require('../models/blog.js')
 
 blogRouter.get('/api/blogs', (request, response) => {
     Blog.find({}).then((blogs) => {
@@ -16,4 +16,4 @@ blogRouter.get('/api/blogs', (request, response) => {
   }) 
 
 
-module.export = blogRouter
+module.exports = blogRouter //forgot a s on the export

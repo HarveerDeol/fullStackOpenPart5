@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
-const logger = require('/loger.js')
+const logger = require('./logger.js')
 
 const PORT = process.env.PORT || 3001
 const url = process.env.MONGODB_URI
@@ -15,7 +15,7 @@ const connectToDb = async () =>{
     }
 }
 
-const setupPort = async () =>{
+const setupPort = async (app) =>{
     app.listen(PORT, () => {
       logger.info(`Server running on port ${PORT}`)
     })
