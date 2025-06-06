@@ -34,10 +34,7 @@ const blogs = [
     const response = await api.get('/api/blogs')
 
     for (const blog of response.body){
-        blogObject = new Blog(blog)
-        console.log(blogObject._id.toString())
-        assert.deepEqual(('id' in blogObject), true)
-        assert.deepEqual(!('_id' in blogObject), true)
+      assert.ok(('id' in blog) && !('_id' in blog))
     }
 })
 
@@ -47,6 +44,33 @@ const blogs = [
     assert.strictEqual(response.body.length, blogs.length)
   })
 
+  test.only('blogs are actaully added to database', async () => {
+    let blogObject = new Blog({
+
+    title: "First class tests",
+    author: "Robert C. Martin",
+    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+    likes: 10,
+  })
+    await blogObject.save()
+    const response = await api.get('/api/blogs')
+
+    assert.strictEqual(response.body.length, blogs.length+1)
+  })
+
+
+  test.only('likes will default to zero if not declared', async () => {
+    let blogObject = new Blog({
+    title: "First class tests",
+    author: "Robert C. Martin",
+    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+  })
+    await blogObject.save()
+    const response = await api.get('/api/blogs')
+    for (const blog of response.body){
+      assert.ok(typeof(blog.likes)=='number')
+    }
+  })
 
 after(async () => {
   await mongoose.connection.close()

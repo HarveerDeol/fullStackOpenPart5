@@ -26,7 +26,20 @@ try {
     } catch(error){
       next(error)
     }
-  }) 
+  })
+
+
+  
+  
+  blogRouter.delete('/:id', async (request, response) => {
+    try{
+      await Blog.deleteOne({_id: request.params.id});//used id instead of id
+      response.status(204).end()
+    } catch {
+      res.sendStatus(404);
+      console.log('No delete occured');
+    }
+  })
 
 
 module.exports = blogRouter //forgot a s on the export
