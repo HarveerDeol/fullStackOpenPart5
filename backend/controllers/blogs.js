@@ -1,18 +1,31 @@
 const blogRouter = require('express').Router()
-const Blog = require('../models/blog.js')
+const Blog = require('../models/blog')
+const middleware = require('../utils/middleware')
 
-blogRouter.get('/api/blogs', (request, response) => {
-    Blog.find({}).then((blogs) => {
-      response.json(blogs)
-    })
-  })
+blogRouter.get('/', async (request, response, next) => {//changed from /api/blogs to / as we are already mounting the router
+try {
+    const blogs = await Blog.find({});
+    response.json(blogs);
+   } catch (error){
+    next(error);
+  }
+})
   
-  blogRouter.post('/api/blogs', (request, response) => {
-    const blog = new Blog(request.body)
-  
-    blog.save().then((result) => {
-      response.status(201).json(result)
-    })
+  blogRouter.post('/', async (request, response, next) => {
+    body = request.body
+    try {
+      const blog = new Blog({
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes
+      })
+      const savedBlog = await blog.save()
+      response.status(201).json(savedBlog)
+
+    } catch(error){
+      next(error)
+    }
   }) 
 
 

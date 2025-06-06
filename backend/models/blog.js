@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+mongoose.set('strictQuery',false)
+
 const blogSchema = new mongoose.Schema({
     title: String,
     author: String,
@@ -16,4 +18,4 @@ Transform:(document, returnedObject) => {
 })
 
 
-  module.export = mongoose.model('Blog', blogSchema)
+  module.exports = mongoose.model('Blog', blogSchema) //forgot the s on exports for the second time
