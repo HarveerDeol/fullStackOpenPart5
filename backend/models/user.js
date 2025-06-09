@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 mongoose.set('strictQuery',false)
 
-const blogSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username:{
         type: String,
         required:true,
@@ -10,16 +10,20 @@ const blogSchema = new mongoose.Schema({
     }, 
     passwordHash: String,
     url: String,
-    blogs:Array,
+    blogs:[{      
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Note'
+    }],
   })
   
-blogSchema.set('toJSON', {
+  userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
+    delete returnedObject.passwordHash
   }
 })
 
 
-  module.exports = mongoose.model('Blog', blogSchema) //forgot the s on exports for the second time
+  module.exports = mongoose.model('User', userSchema) 
