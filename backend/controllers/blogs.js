@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 
 blogRouter.get('/', async (request, response, next) => {//changed from /api/blogs to / as we are already mounting the router
 try {
-    const blogs = await Blog.find({});
+    const blogs = await Blog.find({}).populate('user', {username:1});
     response.json(blogs);
    } catch (error){
     next(error);
@@ -30,7 +30,6 @@ const getTokenFrom = request => {
       return response.status(401).json({ error: 'token invalid' })
     }
     const user = await User.findById(decodedToken.id)
-    console.log("THE USER IS:", user)
 
     if (!user) {
       logger.error('userId missing or not valid')
@@ -47,7 +46,6 @@ const getTokenFrom = request => {
 
 
       const savedBlog = await blog.save()
-      console.log("SAVED BLOG IS ID:", savedBlog._id)
       user.blogs = user.blogs.concat(savedBlog._id)
       await user.save()
       response.status(201).json(savedBlog)
@@ -59,14 +57,32 @@ const getTokenFrom = request => {
 
   
   blogRouter.delete('/:id', async (request, response, next) => {
-    try{
-      await Blog.deleteOne({_id: request.params.id});//used id instead of id
+    try {
+      const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+      const user = await User.findById(decodedToken.id)
+      const blog = await Blog.findById(request.params.id)
+  
+      if (!blog) {
+        return response.status(404).json({ error: 'blog not found' })
+      }
+  
+      if (blog.user.toString() !== user._id.toString()) {
+        return response.status(403).json({ error: 'unauthorized to delete this blog' })
+      }
+  
+      await Blog.findByIdAndDelete(request.params.id)
+  
+      // Remove blog reference from user's blogs array
+      user.blogs = user.blogs.filter(b => b.toString() !== blog._id.toString())
+      await user.save()
+  
       response.status(204).end()
     } catch (error) {
-      next(error);
-      console.log('No delete occured');
+      console.log('No delete occurred')
+      next(error)
     }
   })
+  
 
   blogRouter.put('/:id', async (request, response, next) => {
     const { title, author, url, likes } = request.body
