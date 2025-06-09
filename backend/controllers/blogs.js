@@ -28,16 +28,34 @@ try {
     }
   })
 
-
   
-  
-  blogRouter.delete('/:id', async (request, response) => {
+  blogRouter.delete('/:id', async (request, response, next) => {
     try{
       await Blog.deleteOne({_id: request.params.id});//used id instead of id
       response.status(204).end()
-    } catch {
-      res.sendStatus(404);
+    } catch (error) {
+      next(error);
       console.log('No delete occured');
+    }
+  })
+
+  blogRouter.put('/:id', async (request, response, next) => {
+    const { title, author, url, likes } = request.body
+    try {
+
+      const blog = await Blog.findById(request.params.id)
+
+      blog.title = title
+      blog.author = author
+      blog.url = url
+      blog.likes = likes
+
+      await blog.save()
+      response.json(blog)
+
+    } catch (error){
+      next(error);
+      console.log('No change occured');
     }
   })
 

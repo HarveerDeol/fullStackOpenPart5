@@ -30,7 +30,7 @@ const blogs = [
     await blogObject.save()
   })
 
-  test.only('all unique id properties are named id not _id', async () => {
+  test('all unique id properties are named id not _id', async () => {
     const response = await api.get('/api/blogs')
 
     for (const blog of response.body){
@@ -38,13 +38,13 @@ const blogs = [
     }
 })
 
-  test.only('all blogs are returned', async () => {
+  test('all blogs are returned', async () => {
     const response = await api.get('/api/blogs')
   
     assert.strictEqual(response.body.length, blogs.length)
   })
 
-  test.only('blogs are actaully added to database', async () => {
+  test('blogs are actaully added to database', async () => {
     let blogObject = new Blog({
 
     title: "First class tests",
@@ -59,7 +59,7 @@ const blogs = [
   })
 
 
-  test.only('likes will default to zero if not declared', async () => {
+  test('likes will default to zero if not declared', async () => {
     let blogObject = new Blog({
     title: "First class tests",
     author: "Robert C. Martin",
