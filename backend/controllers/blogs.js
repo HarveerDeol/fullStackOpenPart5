@@ -6,14 +6,6 @@ const usersRouter = require('./users')
 const jwt = require('jsonwebtoken')
 
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.startsWith('Bearer ')) {
-    return authorization.replace('Bearer ', '')
-  }
-  return null
-}
-
 blogRouter.get('/', async (request, response, next) => {//changed from /api/blogs to / as we are already mounting the router
 try {
     const blogs = await Blog.find({});
@@ -22,7 +14,15 @@ try {
     next(error);
   }
 })
-  
+
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
+
   blogRouter.post('/', async (request, response, next) => {
     body = request.body
     const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
@@ -30,6 +30,7 @@ try {
       return response.status(401).json({ error: 'token invalid' })
     }
     const user = await User.findById(decodedToken.id)
+    console.log("THE USER IS:", user)
 
     if (!user) {
       logger.error('userId missing or not valid')
@@ -43,8 +44,11 @@ try {
         likes: body.likes,
         user:user._id
       })
+
+
       const savedBlog = await blog.save()
-      user.blogs = user.blog.concatenate(savedBlog._id)
+      console.log("SAVED BLOG IS ID:", savedBlog._id)
+      user.blogs = user.blogs.concat(savedBlog._id)
       await user.save()
       response.status(201).json(savedBlog)
 
