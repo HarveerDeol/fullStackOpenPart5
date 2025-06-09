@@ -5,15 +5,20 @@ mongoose.set('strictQuery',false)
 const userSchema = new mongoose.Schema({
     username:{
         type: String,
+        minLength:3,
         required:true,
         unique:true
     }, 
-    passwordHash: String,
+    passwordHash:{
+        type:String,
+        minLength:3,
+        required:true
+    },
     url: String,
-    blogs:[{      
+    blogs:[{       
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Note'
-    }],
+    }]
   })
   
   userSchema.set('toJSON', {
