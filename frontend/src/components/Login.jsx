@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
-import blogService from '../services/blogServices.js';
+import blogService from '../services/blogs.js';
 import loginService from '../services/login.js';
 
 const Login = ({username, password, setUsername, setPassword, user, setUser}) => {

@@ -1,12 +1,14 @@
 import {useState} from 'react';
 import axios from 'axios';
-import blogService from '../services/blogServices.js';
+import blogService from '../services/blogs.js';
 
 
-const BlogContent = () => {
-    const data = blogService.getAll()
-    console.log('DATA',data)
-    return(<></>)
-}
+const Blog = ({blog}) => {
+    return (
+        <div>
+        <p>{blog.title} {blog.author}</p>
+        </div>
+      )
+    }
 
-export default BlogContent;
+export default Blog;
