@@ -18,20 +18,30 @@ function App() {
       )  
     }, [])
 
+    useEffect(() => {
+      const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+      if (loggedUserJSON) {
+        const user = JSON.parse(loggedUserJSON)
+        setUser(user)
+        blogService.setToken(user.token)
+      }
+    }, [])
+
 
   return (
     <>
     {user === null ?
     (<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} user={user} setUser={setUser}/>):
-    <><h1>Blog</h1></>}
     <div>
-          <h2>blogs</h2>
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
-          )}
-        </div>
+    <h2>Welcome {user.username}! your blogs:</h2>
+    {blogs.map(blog =>
+      <Blog key={blog.id} blog={blog} user={user}/>
+    )}
+   </div>
+   }
+
     </>
   )
 }
 
-export default App
+export default App;

@@ -3,10 +3,18 @@ import axios from 'axios';
 import blogService from '../services/blogs.js';
 
 
-const Blog = ({blog}) => {
+
+const Blog = ({blog, user}) => {
+    
+    const blogsOfUser = (user) =>{
+        console.log('USER',blog)
+        if (blog.user.username.toString() === user.username.toString()){
+            return (<p>{blog.title} {blog.author}</p>)
+        }
+    }
     return (
         <div>
-        <p>{blog.title} {blog.author}</p>
+            {blogsOfUser(user)}
         </div>
       )
     }
