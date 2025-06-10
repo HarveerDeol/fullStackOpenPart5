@@ -7,15 +7,14 @@ import blogService from '../services/blogs.js';
 const Blog = ({blog, user}) => {
     
     const blogsOfUser = (user) =>{
-        console.log('USER',blog)
         if (blog.user.username.toString() === user.username.toString()){
-            return (<p>{blog.title} {blog.author}</p>)
+            return (<li>{blog.title} : {blog.author}</li>)
         }
     }
     return (
-        <div>
+        <ul>
             {blogsOfUser(user)}
-        </div>
+        </ul>
       )
     }
 
