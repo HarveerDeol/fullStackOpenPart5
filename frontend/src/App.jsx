@@ -4,8 +4,8 @@ import './App.css';
 import Login from './components/Login.jsx';
 import Blog from './components/BlogPosts.jsx';
 import AddBlog from './components/AddBlog.jsx';
-import blogService from './services/blogs.js';
-import loginService from './services/login';
+import blogService from './services/blogsService.js';
+import loginService from './services/loginService';
 
 function App() {
   const [username, setUsername] = useState('') 
@@ -14,10 +14,9 @@ function App() {
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-      )  
-    }, [])
+    const getBlogs = blogService.getAll()
+    setBlogs(getBlogs)
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedblogappUser')
@@ -31,18 +30,25 @@ function App() {
 
   return (
     <>
-    { user === null ?
-      (<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} user={user} setUser={setUser}/>):
-      <div>
-        <h2>Welcome {user.username}! your blogs:</h2>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} user={user}/>
-        )}
-      </div>
-    }
-    <div><AddBlog/></div>
+      {user === null ? (
+        <Login
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          user={user}
+          setUser={setUser}
+        />
+      ) : (
+        <div>
+          <h2>Welcome {user.username}! Your blogs:</h2>
+              <Blog blogs={blogs} user={user} />
+        </div>
+      )}
+      <div> <AddBlog /> </div>
     </>
   )
+  
 }
 
 export default App;

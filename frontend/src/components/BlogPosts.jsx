@@ -4,16 +4,21 @@ import axios from 'axios';
 
 
 
-const Blog = ({blog, user}) => {
+const Blog = ({blogs, user}) => {
+    const blogsOfUser = () =>{
+        console.log('BLOGS:',blogs)
+        console.log('USER:',user)
+        if (blogs.user){
+        return blogs.map(blog => {
+            if (blog.user.toString() === user._id.toString()){
+                (<li key={blog.id}>{blog.title} : {blog.author}</li>)
+            }
+        })}
+    };
     
-    const blogsOfUser = (user) =>{
-        if (blog.user.username.toString() === user.username.toString()){
-            return (<li>{blog.title} : {blog.author}</li>)
-        }
-    }
     return (
         <ul>
-            {blogsOfUser(user)}
+            {blogsOfUser()}
         </ul>
       )
     }

@@ -41,7 +41,7 @@ const getTokenFrom = request => {
         author: body.author,
         url: body.url,
         likes: body.likes,
-        user:user.username
+        user:user._id
       })
 
 

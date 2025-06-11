@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios';
-import blogService from '../services/blogs.js';
-import loginService from '../services/login.js';
+import blogService from '../services/blogsService.js';
+import loginService from '../services/loginService.js';
 
 const Login = ({username, password, setUsername, setPassword, user, setUser}) => {
     
@@ -16,6 +16,7 @@ const Login = ({username, password, setUsername, setPassword, user, setUser}) =>
             window.localStorage.setItem(
                 'loggedblogappUser', JSON.stringify(user)
               ) 
+            
             blogService.setToken(user.token)
             setUser(user)
             setUsername('')
