@@ -5,20 +5,7 @@ import blogService from '../services/blogsService.js';
 
 const Blog = ({blogs, setBlogs, user}) => {
 
-    useEffect(() => {
-        const fetchBlogs = async () => {
-          try {
-            const getBlogs = await blogService.getAll()
-            
-            const userBlogs = getBlogs.filter(blog => blog.user.username === user.username)
-            setBlogs(userBlogs)
-          } catch (error) {
-            console.error('error fetching blogs:', error)
-          }
-        }
-      
-        fetchBlogs()
-      }, [user]) // also add user as a dependency if it's not constant
+
       
 
     const blogsOfUser = () =>{

@@ -13,20 +13,31 @@ function App() {
   const [password, setPassword] = useState('') 
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
-
+  
+  
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedblogappUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
+    const init = async () => {
+      const loggedUserJSON = window.localStorage.getItem('loggedblogappUser')
+      if (loggedUserJSON) {
+        const user = JSON.parse(loggedUserJSON)
+        setUser(user)
+        blogService.setToken(user.token)
+  
+        try {
+          const getBlogs = await blogService.getAll()
+          const userBlogs = getBlogs.filter(blog => blog.user.username === user.username)
+          console.log(userBlogs)
+          setBlogs(userBlogs)
+        } catch (error) {
+          console.error('error fetching blogs:', error)
+        }
+      }
     }
+  
+    init()
   }, [])
-
-
-
-
+  
   return (
     <>
       {user === null ? (
@@ -37,6 +48,7 @@ function App() {
           setPassword={setPassword}
           user={user}
           setUser={setUser}
+          setBlogs={setBlogs}
         />
       ) : (
         <div>
@@ -45,7 +57,7 @@ function App() {
         </div>
       )}
       <div> <AddBlog blogs= {blogs} setBlogs = {setBlogs}/> </div>
-      <div><Logout/></div>
+      <div><Logout setUser = {setUser} setBlogs={setBlogs}/></div>
     </>
   )
   

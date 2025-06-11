@@ -3,8 +3,20 @@ import axios from 'axios';
 import blogService from '../services/blogsService.js';
 import loginService from '../services/loginService.js';
 
-const Login = ({username, password, setUsername, setPassword, user, setUser}) => {
-    
+
+const Login = ({username, password, setUsername, setPassword, user, setUser, setBlogs}) => {
+    const setDatabase = async (user) =>{
+        try {
+            const getBlogs = await blogService.getAll()
+            console.log('getBlogs:',getBlogs)
+            const userBlogs = getBlogs.filter(blog => blog.user.username === user.username)
+
+            setBlogs(userBlogs)
+          } catch (error) {
+            console.error('error fetching blogs:', error)
+          }
+    }
+
     const handleLogin = async (e) => {
         e.preventDefault()
         
@@ -16,12 +28,14 @@ const Login = ({username, password, setUsername, setPassword, user, setUser}) =>
                 'loggedblogappUser', JSON.stringify(user)
               ) 
             
-            blogService.setToken(user.token)
-            setUser(user)
-            setUsername('')
-            setPassword('')
+            blogService.setToken(user.token);
+            setUser(user);
+            setDatabase(user);
+            setUsername('');
+            setPassword('');
         } catch (exception) {
-            alert('Wrong credentials')
+            alert('Wrong credentials',exception)
+            console.error(exception)
       }
     }
 
