@@ -40,6 +40,7 @@ function App() {
   
   return (
     <>
+    <h1>Welcome!</h1>
       {user === null ? (
         <Login
           username={username}
@@ -56,6 +57,7 @@ function App() {
               <Blog blogs={blogs} setBlogs = {setBlogs} user={user} />
         </div>
       )}
+
       <div> <AddBlog blogs= {blogs} setBlogs = {setBlogs}/> </div>
       <div><Logout setUser = {setUser} setBlogs={setBlogs}/></div>
     </>
