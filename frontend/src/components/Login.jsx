@@ -14,7 +14,7 @@ const Login = ({username, password, setUsername, setPassword, user, setUser}) =>
             username, password,
             })
             window.localStorage.setItem(
-                'loggedNoteappUser', JSON.stringify(user)
+                'loggedblogappUser', JSON.stringify(user)
               ) 
             blogService.setToken(user.token)
             setUser(user)

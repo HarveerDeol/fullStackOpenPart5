@@ -4,32 +4,34 @@ import blogService from '../services/blogs.js';
 import loginService from '../services/login.js';
 
 const AddBlog = () => {
-    const [url, setUrl] = useState('')
-    const [author, setAuthor] = useState('')
-    const [title, setTitle] = useState('')
+    const [newUrl, setNewUrl] = useState('')
+    const [newAuthor, setNewAuthor] = useState('')
+    const [newTitle, setNewTitle] = useState('')
 
-    const addUserBlog = () => {
-        console.log('checkpint reached')
-    }
-    
+    const blogObject={
+        url:newUrl,
+        author:newAuthor,
+        title:newTitle,
+        likes:0
+    } 
 
     return(
-        <form onsumbit={addUserBlog}>
+        <form onSumbit={blogService.create(blogObject)}>
             <fieldset><strong>Add Another Blog:</strong>
             <div>
                 <label htmlFor='title'>Title: </label>
-                <input type="text" id="title" name="title" value={title}
-                        onChange={({target})=>setTitle(target.value)} required/>
+                <input type="text" id="title" name="title" value={newTitle}
+                        onChange={({target})=>setNewTitle(target.value)} required/>
             </div>
             <div>
                 <label htmlFor='author'>Author: </label>
-                <input type="author" id="author" name="author" value={author}
-                        onChange={({target})=>setAuthor(target.value)} required/>
+                <input type="author" id="author" name="author" value={newAuthor}
+                        onChange={({target})=>setNewAuthor(target.value)} required/>
             </div>
             <div>
                 <label htmlFor='title'>URL: </label>
-                <input type="text" id="url" name="url" value={url}
-                        onChange={({target})=>setUrl(target.value)} required/>
+                <input type="text" id="url" name="url" value={newUrl}
+                        onChange={({target})=>setNewUrl(target.value)} required/>
             </div>
             <br></br>
             <button type="submit">Add</button>

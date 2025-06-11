@@ -20,7 +20,7 @@ function App() {
     }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedblogappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -40,7 +40,7 @@ function App() {
         )}
       </div>
     }
-    <div><AddBlog /></div>
+    <div><AddBlog/></div>
     </>
   )
 }
