@@ -5,7 +5,6 @@ import loginService from '../services/loginService.js';
 
 
 const Login = ({username, password, setUsername, setPassword, user, setUser, setBlogs}) => {
-    const [loginVisible, setLoginVisible] = useState(false);
     const setDatabase = async (user) =>{
         try {
             const getBlogs = await blogService.getAll()
@@ -39,11 +38,10 @@ const Login = ({username, password, setUsername, setPassword, user, setUser, set
             console.error(exception)
       }
     }
-    const showWhenVisible = { display: loginVisible ? 'none' : '' }
-    const hideWhenVisible = { display: loginVisible ? '' : 'none' }
+
     return (
-        <div>
-        <form id='login' onSubmit={handleLogin} style={hideWhenVisible}>
+
+        <form id='login' onSubmit={handleLogin}>
             <h2>Login</h2>
             <div id="username">
                 <label htmlFor="username">Username </label>
@@ -56,12 +54,10 @@ const Login = ({username, password, setUsername, setPassword, user, setUser, set
                      onChange={({target})=>setPassword(target.value)} required/>
             </div>
             <br></br>
-            <button class="child" type='submit'>Login</button>
+            <button type='submit'>Login</button>
 
         </form>
-            <button onClick={() => setLoginVisible(true)} style={showWhenVisible}>Login</button>
-            <button  onClick={() => setLoginVisible(false)} style={hideWhenVisible}>Cancel</button>  
-        </div>
+
     )
 }
 

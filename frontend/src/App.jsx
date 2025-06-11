@@ -5,6 +5,7 @@ import Login from './components/Login.jsx';
 import Blog from './components/BlogPosts.jsx';
 import AddBlog from './components/AddBlog.jsx';
 import Logout from './components/Logout.jsx';
+import Togglable from './components/Togglable.jsx';
 import blogService from './services/blogsService.js';
 import loginService from './services/loginService';
 
@@ -41,7 +42,9 @@ function App() {
   return (
     <>
     <h1>Welcome!</h1>
-      {user === null ? (
+    
+      { user === null && (
+        <Togglable  buttonLabel="Login">
         <Login
           username={username}
           setUsername={setUsername}
@@ -51,15 +54,25 @@ function App() {
           setUser={setUser}
           setBlogs={setBlogs}
         />
-      ) : (
+      </Togglable>
+      )}
+    
+      { user !== null && (
+        <>
         <div>
           <h2>Welcome {user.username}! Your blogs:</h2>
               <Blog blogs={blogs} setBlogs = {setBlogs} user={user} />
         </div>
+      
+      <div> 
+        <Togglable  buttonLabel="Add Blog">
+          <AddBlog blogs= {blogs} setBlogs = {setBlogs}/> 
+        </Togglable>
+        <hr></hr>
+          <Logout setUser = {setUser} setBlogs={setBlogs}/>
+      </div>
+      </>
       )}
-
-      <div> <AddBlog blogs= {blogs} setBlogs = {setBlogs}/> </div>
-      <div><Logout setUser = {setUser} setBlogs={setBlogs}/></div>
     </>
   )
   
