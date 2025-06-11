@@ -5,7 +5,6 @@ import loginService from '../services/loginService.js';
 
 const Login = ({username, password, setUsername, setPassword, user, setUser}) => {
     
-
     const handleLogin = async (e) => {
         e.preventDefault()
         

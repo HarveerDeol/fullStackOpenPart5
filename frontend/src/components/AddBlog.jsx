@@ -3,12 +3,12 @@ import axios from 'axios';
 import blogService from '../services/blogsService.js';
 import loginService from '../services/loginService.js';
 
-const AddBlog = () => {
+const AddBlog = ({blogs, setBlogs}) => {
     const [newUrl, setNewUrl] = useState('')
     const [newAuthor, setNewAuthor] = useState('')
     const [newTitle, setNewTitle] = useState('')
 
-    const newBlog = (event) => {
+    const addNewBlog = async (event) => {
         event.preventDefault()
         const blogObject={
             url:newUrl,
@@ -16,11 +16,15 @@ const AddBlog = () => {
             title:newTitle,
             likes:0
         };
-        blogService.create(blogObject)
+        const newBlog = await blogService.create(blogObject)
+        setBlogs(blogs.concat(newBlog))
+        setNewUrl('')
+        setNewAuthor('')
+        setNewTitle('')
     } 
 
     return(
-        <form onSubmit={newBlog}>
+        <form onSubmit={addNewBlog}>
             <fieldset><strong>Add Another Blog:</strong>
             <div>
                 <label htmlFor='title'>Title: </label>
@@ -38,8 +42,8 @@ const AddBlog = () => {
                         onChange={({target})=>setNewUrl(target.value)} required/>
             </div>
             <br></br> 
-            </fieldset>
             <button type="submit">Add</button>
+            </fieldset>
         </form>
     )
 }

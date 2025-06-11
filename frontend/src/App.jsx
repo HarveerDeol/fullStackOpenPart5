@@ -4,6 +4,7 @@ import './App.css';
 import Login from './components/Login.jsx';
 import Blog from './components/BlogPosts.jsx';
 import AddBlog from './components/AddBlog.jsx';
+import Logout from './components/Logout.jsx';
 import blogService from './services/blogsService.js';
 import loginService from './services/loginService';
 
@@ -13,10 +14,6 @@ function App() {
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
 
-  useEffect(() => {
-    const getBlogs = blogService.getAll()
-    setBlogs(getBlogs)
-  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedblogappUser')
@@ -26,6 +23,8 @@ function App() {
       blogService.setToken(user.token)
     }
   }, [])
+
+
 
 
   return (
@@ -42,10 +41,11 @@ function App() {
       ) : (
         <div>
           <h2>Welcome {user.username}! Your blogs:</h2>
-              <Blog blogs={blogs} user={user} />
+              <Blog blogs={blogs} setBlogs = {setBlogs} user={user} />
         </div>
       )}
-      <div> <AddBlog /> </div>
+      <div> <AddBlog blogs= {blogs} setBlogs = {setBlogs}/> </div>
+      <div><Logout/></div>
     </>
   )
   
