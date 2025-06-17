@@ -6,22 +6,21 @@ import blogService from "../services/blogsService.js";
 import loginService from "../services/loginService.js";
 
 const AddBlog = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const addNewBlog = async (event) => {
-        event.preventDefault()
-        const content = {
-          title:event.target.title.value,
-          author:event.target.author.value,
-          url:event.target.url.value
-        }
-        event.target.title.value = ''
-        event.target.author.value = ''
-        event.target.url.value = ''
-        
-
-        dispatch(createBlog(content))
+    event.preventDefault();
+    const content = {
+      title: event.target.title.value,
+      author: event.target.author.value,
+      url: event.target.url.value,
     };
+    event.target.title.value = "";
+    event.target.author.value = "";
+    event.target.url.value = "";
+
+    dispatch(createBlog(content));
+  };
 
   return (
     <form onSubmit={addNewBlog}>
@@ -29,30 +28,15 @@ const AddBlog = () => {
         <strong>Add Another Blog:</strong>
         <div>
           <label htmlFor="title">Title: </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            required
-          />
+          <input type="text" id="title" name="title" required />
         </div>
         <div>
           <label htmlFor="author">Author: </label>
-          <input
-            type="author"
-            id="author"
-            name="author"
-            required
-          />
+          <input type="author" id="author" name="author" required />
         </div>
         <div>
           <label htmlFor="title">URL: </label>
-          <input
-            type="text"
-            id="url"
-            name="url"
-            required
-          />
+          <input type="text" id="url" name="url" required />
         </div>
         <br></br>
         <button type="submit">Add</button>
@@ -62,7 +46,6 @@ const AddBlog = () => {
 };
 
 export default AddBlog;
-
 
 // import { useState } from "react";
 // import axios from "axios";
@@ -134,4 +117,3 @@ export default AddBlog;
 // };
 
 // export default AddBlog;
-

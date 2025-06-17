@@ -1,9 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import blogReducer from './reducers/blogReducer'
+import { configureStore } from "@reduxjs/toolkit";
+import blogReducer from "./reducers/blogReducer";
 
 const store = configureStore({
-    reducer:{
-    blog: blogReducer
-  }})
+  reducer: {
+    blog: blogReducer,
+  },
+});
 
-export default store
+export default store;

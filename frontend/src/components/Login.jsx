@@ -1,45 +1,20 @@
-import { useState } from "react";
-import axios from "axios";
 import blogService from "../services/blogsService.js";
 import loginService from "../services/loginService.js";
+import { useDispatch } from "react-redux";
+import { signin } from "../reducers/loginReducer.js";
 
-const Login = ({
-  username,
-  password,
-  setUsername,
-  setPassword,
-  user,
-  setUser,
-  setBlogs,
-}) => {
-  const setDatabase = async (user) => {
-    try {
-      const getBlogs = await blogService.getAll();
-      const userBlogs = getBlogs.filter(
-        (blog) => blog.user.username === user.username,
-      );
+const Login = () => {
+  const dispatch = useDispatch();
 
-      setBlogs(userBlogs);
-    } catch (error) {
-      console.error("error fetching blogs:", error);
-    }
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
     try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
-      window.localStorage.setItem("loggedblogappUser", JSON.stringify(user));
-
-      blogService.setToken(user.token);
-      setUser(user);
-      setDatabase(user);
-      setUsername("");
-      setPassword("");
+      const credentials = {
+        username:event.target.username.value,
+        password:event.target.password.value
+      }
+      dispatch(signin(credentials))
     } catch (exception) {
       alert("Wrong credentials", exception);
       console.error(exception);
@@ -54,9 +29,7 @@ const Login = ({
         <input
           type="text"
           id="username"
-          name="Username"
-          value={username}
-          onChange={({ target }) => setUsername(target.value)}
+          name="username"
           required
         />
       </div>
@@ -66,8 +39,6 @@ const Login = ({
           type="password"
           id="password"
           name="Password"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
           required
         />
       </div>

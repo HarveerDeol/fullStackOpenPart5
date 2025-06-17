@@ -8,7 +8,7 @@ import Logout from "./components/Logout.jsx";
 import Togglable from "./components/Togglable.jsx";
 import blogService from "./services/blogsService.js";
 import loginService from "./services/loginService";
-import { initalizeBlog } from './reducers/blogReducer';
+import { initalizeBlog } from "./reducers/blogReducer";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -19,8 +19,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initalizeBlog())
-  }, [])
+    dispatch(initalizeBlog());
+  }, []);
 
   useEffect(() => {
     const init = async () => {
@@ -72,7 +72,7 @@ function App() {
 
           <div>
             <Togglable buttonLabel="Add Blog">
-              <AddBlog  />
+              <AddBlog />
             </Togglable>
             <hr></hr>
             <Logout setUser={setUser} setBlogs={setBlogs} />
