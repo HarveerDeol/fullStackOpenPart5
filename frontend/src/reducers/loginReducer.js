@@ -10,8 +10,7 @@ const loginSlice = createSlice({
         return action.payload
     },
     signoutUser( state, action ){
-        state = {}
-        return state
+        return state = {}
 
     }
   },
@@ -19,19 +18,27 @@ const loginSlice = createSlice({
 
 export const { setUser, signoutUser } = loginSlice.actions
 
+export const pendingSession = (userObject) => {
+    return async (dispatch) => {
+        blogsService.setToken(userObject.token);
+        dispatch(setUser(userObject));
+    };
+};
+
 export const signin = (userObject) => {
     return async (dispatch) => {
         const user = await loginService.login(userObject);
-        window.localStorage.setItem("loggedblogappUser", JSON.stringify(user));
-        const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
-        const loggedInUser = JSON.parse(loggedUserJSON);
         blogsService.setToken(user.token);
-        dispatch(setUser(loggedInUser));
+        dispatch(setUser(user));
     };
 };
 
 export const signout = () => {
+    return async (dispatch) => {
+        await window.localStorage.removeItem("loggedblogappUser");
+        dispatch(signoutUser())
+    };
 
-}
+};
 
 export default loginSlice.reducer

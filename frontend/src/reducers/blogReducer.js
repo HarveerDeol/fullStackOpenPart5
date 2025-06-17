@@ -28,6 +28,7 @@ export const { addBlog, setBlogs, addToLikes } = blogSlice.actions;
 
 export const initalizeBlog = () => {
   return async (dispatch) => {
+    console.log('initalizeBlog is running')
     const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
     const user = JSON.parse(loggedUserJSON);
     blogsService.setToken(user.token);
