@@ -20,15 +20,17 @@ const blogSlice = createSlice({
       };
       return state.map((blog) => (blog.id !== id ? blog : changedLike));
     },
+    deleteBlog(state, action) {
+      ///
+    },
   },
 });
-
 
 export const { addBlog, setBlogs, addToLikes } = blogSlice.actions;
 
 export const initalizeBlog = () => {
   return async (dispatch) => {
-    console.log('initalizeBlog is running')
+    console.log("initalizeBlog is running");
     const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
     const user = JSON.parse(loggedUserJSON);
     blogsService.setToken(user.token);

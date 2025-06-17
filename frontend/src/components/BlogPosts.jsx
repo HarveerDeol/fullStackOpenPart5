@@ -12,16 +12,28 @@ const Blog = () => {
   return (
     <div>
       {blogs.map((blog) => (
-        <p key={blog.id}>
-          {blog.title} : {blog.author} : {blog.likes}{" "}
+        <div key={blog.id}>
+          <hr></hr>
+          <p>
+            {blog.title} : {blog.author} : {blog.likes}{" "}
+          </p>
           <button
             onClick={() => {
               dispatch(likeBlog({ ...blog, likes: blog.likes + 1 }));
-            }}>
+            }}
+          >
             Like
           </button>
-        </p>
+          <button
+            onClick={() => {
+              dispatch(likeBlog({ ...blog, likes: blog.likes + 1 }));
+            }}
+          >
+            Delete
+          </button>
+        </div>
       ))}
+      <hr></hr>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import loginReducer from "./reducers/loginReducer";
 const store = configureStore({
   reducer: {
     blog: blogReducer,
-    user: loginReducer
+    user: loginReducer,
   },
 });
 

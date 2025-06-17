@@ -14,17 +14,17 @@ import { useDispatch, useSelector } from "react-redux";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => {
-    return state.user
-  })
+    return state.user;
+  });
 
-  useEffect(()=>{
+  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
-    if (loggedUserJSON){
+    if (loggedUserJSON) {
       const userData = JSON.parse(loggedUserJSON);
-      dispatch(pendingSession(userData))
-      dispatch(initalizeBlog())
+      dispatch(pendingSession(userData));
+      dispatch(initalizeBlog());
     }
-  },[window.localStorage.getItem("loggedblogappUser")])
+  }, [window.localStorage.getItem("loggedblogappUser")]);
 
   return (
     <>
@@ -36,10 +36,12 @@ function App() {
         </Togglable>
       )}
 
-      {user.token  && (
+      {user.token && (
         <>
           <div>
-            <h2>Welcome! Your blogs:</h2>
+            <h2>
+              Welcome {user.username}!<br></br>Your blogs:
+            </h2>
             <Blog />
           </div>
 

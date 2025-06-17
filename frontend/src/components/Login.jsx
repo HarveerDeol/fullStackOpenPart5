@@ -9,10 +9,10 @@ const Login = () => {
 
     try {
       const credentials = {
-        username:event.target.username.value,
-        password:event.target.password.value
-      }
-      dispatch(signin(credentials))
+        username: event.target.username.value,
+        password: event.target.password.value,
+      };
+      dispatch(signin(credentials));
     } catch (exception) {
       alert("Wrong credentials", exception);
       console.error(exception);
@@ -24,21 +24,11 @@ const Login = () => {
       <h2>Login</h2>
       <div id="username">
         <label htmlFor="username">Username </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-        />
+        <input type="text" id="username" name="username" required />
       </div>
       <div>
         <label htmlFor="password">Password </label>
-        <input
-          type="password"
-          id="password"
-          name="Password"
-          required
-        />
+        <input type="password" id="password" name="Password" required />
       </div>
       <br></br>
       <button type="submit">Login</button>
