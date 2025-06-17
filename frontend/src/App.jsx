@@ -25,7 +25,6 @@ function App() {
   useEffect(() => {
     const init = async () => {
       const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
-      console.log(loggedUserJSON)
       if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON);
         setUser(user);
@@ -68,12 +67,12 @@ function App() {
         <>
           <div>
             <h2>Welcome {user.username}! Your blogs:</h2>
-            <Blog blogs={blogs} setBlogs={setBlogs} user={user} />
+            <Blog />
           </div>
 
           <div>
             <Togglable buttonLabel="Add Blog">
-              <AddBlog blogs={blogs} setBlogs={setBlogs} />
+              <AddBlog  />
             </Togglable>
             <hr></hr>
             <Logout setUser={setUser} setBlogs={setBlogs} />

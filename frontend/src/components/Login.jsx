@@ -15,7 +15,6 @@ const Login = ({
   const setDatabase = async (user) => {
     try {
       const getBlogs = await blogService.getAll();
-      console.log("getBlogs:", getBlogs);
       const userBlogs = getBlogs.filter(
         (blog) => blog.user.username === user.username,
       );

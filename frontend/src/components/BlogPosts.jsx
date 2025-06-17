@@ -2,6 +2,7 @@ import axios from "axios";
 import blogService from "../services/blogsService.js";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { likeBlog } from "../reducers/blogReducer";
 
 const Blog = () => {
     const dispatch = useDispatch();
@@ -12,7 +13,9 @@ const Blog = () => {
     <div>
     {blogs.map(blog =>
         <li key={blog.id}>
-          {blog.title}
+          {blog.title} : {blog.author} : {blog.likes} <button 
+          onClick={()=>{     
+            dispatch(likeBlog({...blog, likes:blog.likes+1}))}}>Like</button>
         </li>
       )}
       </div>
