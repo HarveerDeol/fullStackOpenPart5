@@ -15,7 +15,6 @@ const AddBlog = () => {
           author:event.target.author.value,
           url:event.target.url.value
         }
-        console.log(content)
         event.target.title.value = ''
         event.target.author.value = ''
         event.target.url.value = ''

@@ -18,8 +18,15 @@ export const { addBlog, setBlogs} = blogSlice.actions
 
 export const initalizeBlog = () => {
     return async dispatch => {
-        const blogs = await blogsService.getAll()
-        dispatch(setBlogs(blogs))
+        const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");  
+        const user = JSON.parse(loggedUserJSON);
+        blogsService.setToken(user.token);
+        const blogs = await blogsService.getAll();
+        console.log(blogs)
+          const userBlogs = blogs.filter(
+            (blog) => blog.user.username === user.username,
+          );
+        dispatch(setBlogs(userBlogs))
       }
 
 }

@@ -8,16 +8,24 @@ import Logout from "./components/Logout.jsx";
 import Togglable from "./components/Togglable.jsx";
 import blogService from "./services/blogsService.js";
 import loginService from "./services/loginService";
+import { initalizeBlog } from './reducers/blogReducer';
+import { useDispatch } from "react-redux";
 
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initalizeBlog())
+  }, [])
 
   useEffect(() => {
     const init = async () => {
       const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
+      console.log(loggedUserJSON)
       if (loggedUserJSON) {
         const user = JSON.parse(loggedUserJSON);
         setUser(user);
@@ -28,7 +36,6 @@ function App() {
           const userBlogs = getBlogs.filter(
             (blog) => blog.user.username === user.username,
           );
-          console.log(userBlogs);
           setBlogs(userBlogs);
         } catch (error) {
           console.error("error fetching blogs:", error);
