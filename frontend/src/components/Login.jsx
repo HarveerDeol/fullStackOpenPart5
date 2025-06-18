@@ -28,7 +28,13 @@ const Login = () => {
       </div>
       <div>
         <label htmlFor="password">Password </label>
-        <input type="password" id="password" name="Password" required />
+        <input
+          type="password"
+          id="password"
+          name="Password"
+          autoComplete="on"
+          required
+        />
       </div>
       <br></br>
       <button type="submit">Login</button>

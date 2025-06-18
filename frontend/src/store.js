@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: {
     blog: blogReducer,
     user: loginReducer,
-    users: userReducer
+    users: userReducer,
   },
 });
 
