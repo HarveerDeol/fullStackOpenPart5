@@ -52,14 +52,13 @@ function App() {
                   <Togglable buttonLabel="Add Blog">
                     <AddBlog />
                   </Togglable>
-                  <hr></hr>
-                  <Logout />
+
                 </div>
               </>
             }
           />
           <Route path="/users" element={<Users />} />
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={(window.localStorage.getItem("loggedblogappUser")) ? <><h2>Already Logged In!</h2> <Logout /></>:<Login />} />
         </Routes>
       </Router>
     </>
