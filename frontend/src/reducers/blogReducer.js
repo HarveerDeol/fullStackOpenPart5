@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import blogsService from "../services/blogsService";
 import { useSelector } from "react-redux";
 
-
-
 const blogSlice = createSlice({
   name: "blogs",
   initialState: [],
@@ -24,13 +22,11 @@ const blogSlice = createSlice({
       return state.map((blog) => (blog.id !== id ? blog : changedLike));
     },
     removeBlog(state, action) {
-      return(
-        state.filter((blog) =>{
-          if (blog.id !== action.payload){
-            return blog
-          }
-        })
-      )
+      return state.filter((blog) => {
+        if (blog.id !== action.payload) {
+          return blog;
+        }
+      });
     },
   },
 });
@@ -66,7 +62,7 @@ export const deleteBlog = (id) => {
   return async (dispatch) => {
     const deletedBlog = await blogsService.remove(id);
     dispatch(removeBlog(id));
-  }
-}
+  };
+};
 
 export default blogSlice.reducer;

@@ -26,7 +26,7 @@ const Blog = () => {
           </button>
           <button
             onClick={() => {
-              dispatch(deleteBlog( blog.id ));
+              dispatch(deleteBlog(blog.id));
             }}
           >
             Delete
