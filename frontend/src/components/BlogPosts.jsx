@@ -2,7 +2,7 @@ import axios from "axios";
 import blogService from "../services/blogsService.js";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { likeBlog } from "../reducers/blogReducer";
+import { likeBlog, deleteBlog } from "../reducers/blogReducer";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Blog = () => {
           </button>
           <button
             onClick={() => {
-              dispatch(likeBlog({ ...blog, likes: blog.likes + 1 }));
+              dispatch(deleteBlog( blog.id ));
             }}
           >
             Delete
