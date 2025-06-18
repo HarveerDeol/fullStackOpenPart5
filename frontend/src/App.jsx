@@ -22,7 +22,7 @@ function App() {
     if (loggedUserJSON) {
       const userData = JSON.parse(loggedUserJSON);
       dispatch(pendingSession(userData));
-      dispatch(initalizeBlog());
+      dispatch(initalizeBlog(userData));
     }
   }, [window.localStorage.getItem("loggedblogappUser")]);
 

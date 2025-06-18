@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import blogsService from "../services/blogsService";
+import { useSelector } from "react-redux";
+
+
 
 const blogSlice = createSlice({
   name: "blogs",
@@ -21,19 +24,22 @@ const blogSlice = createSlice({
       return state.map((blog) => (blog.id !== id ? blog : changedLike));
     },
     deleteBlog(state, action) {
-      ///
+      return(
+        state.map(blog =>{
+          if (blog.id !== action.payload){
+            return blog
+          }
+        })
+      )
     },
   },
 });
 
 export const { addBlog, setBlogs, addToLikes } = blogSlice.actions;
 
-export const initalizeBlog = () => {
+export const initalizeBlog = (user) => {
   return async (dispatch) => {
     console.log("initalizeBlog is running");
-    const loggedUserJSON = window.localStorage.getItem("loggedblogappUser");
-    const user = JSON.parse(loggedUserJSON);
-    blogsService.setToken(user.token);
     const blogs = await blogsService.getAll();
     const userBlogs = blogs.filter(
       (blog) => blog.user.username === user.username,
